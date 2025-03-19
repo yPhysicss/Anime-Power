@@ -194,9 +194,17 @@
         }
 
         function formatarTempo(horas) {
-            let h = Math.floor(horas);
-            let m = Math.round((horas - h) * 60);
-            return `${h}h ${m}m`;
+            let dias = Math.floor(horas / 24);
+            let horasRestantes = Math.floor(horas % 24);
+            let minutos = Math.floor((horas - Math.floor(horas)) * 60);
+
+            if (dias > 0) {
+                return `${dias}d ${horasRestantes}h`;
+            } else if (horasRestantes > 0) {
+                return `${horasRestantes}h ${minutos}m`;
+            } else {
+                return `${minutos}m`;
+            }
         }
 
         function formatarNumero(num) {
@@ -232,14 +240,4 @@
 
             let resultText = `
                 <p>Você pode roletar por <b>${formatarTempo(maxHours)}</b>.</p>
-                <p>Com <b>${openCount}</b> opens por vez e ${fastOpen ? "Fast Open ativado" : "Fast Open desativado"},</p>
-                <p>Para roletar por <b>${time}H</b>, você precisará de <b>${formatarNumero(moneyNeeded)}</b> dinheiro.</p>
-            `;
-
-            document.getElementById("result").innerHTML = resultText;
-            document.getElementById("result").style.display = "block";
-        }
-    </script>
-
-</body>
-  </html>
+                <p>Com <b>${openCount}</b> opens por vez e ${fastOpen ? "Fast Open ativado"
